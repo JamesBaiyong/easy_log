@@ -6,10 +6,10 @@ from setuptools import setup
 
 setup(
     name='EasyLog',
-    version='1.0',
+    version='0.1',
     packages=[
         'easy_log',
-        'easy_log.config'
+        'easy_log.common'
     ],
 )
 

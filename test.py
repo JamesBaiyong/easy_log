@@ -12,7 +12,7 @@ mail = {'mail': {
 from easy_log.easy_log import EasyLog
 
 # log = EasyLog(mail)
-log = EasyLog(mail)
+log = EasyLog()
 log.logger.info('info message')
 log.logger.debug('debug message')
 log.logger.error('error message')
