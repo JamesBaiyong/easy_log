@@ -34,6 +34,16 @@ log_str = '''{
             'formatter': 'default',
             'stream': 'ext://sys.stdout',
         },
+       'mail': {
+          'class': 'logging.handlers.SMTPHandler',
+          'level': 'CRITICAL',
+          'formatter': 'mail',
+          'mailhost': ('smtp.126.com', 25),
+          'credentials': ('test@163.com', 'password'),
+          'fromaddr': 'test@163.com',
+          'toaddrs': ['test_one@163.com'],
+          'subject': 'easy_log_test',
+    },
     },
     'loggers': {
         'log_note': {

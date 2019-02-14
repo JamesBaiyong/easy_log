@@ -19,6 +19,7 @@ class EasyLog(object):
             self._make_data_dir()
         log_config = eval(self.logfile)
         if isinstance(mail_conf, dict) and mail_conf:
+            self.__check_email_conf(email_conf=mail_conf)
             log_config = self.__email_conf(log_config, mail_conf)
         logging.config.dictConfig(log_config)
 
@@ -33,6 +34,25 @@ class EasyLog(object):
         """
         邮件通知配置加载
         """
-        log_config['handlers'].update(email_conf)
+        email_conf.update({'fromaddr':email_conf['credentials'][0]})
+        log_config['handlers']['mail'].update(email_conf)
         log_config['loggers']['log_note']['handlers'].append('mail')
         return log_config
+
+    @staticmethod
+    def __check_email_conf(email_conf):
+        """
+        传入参数简单检查
+        """
+        if not isinstance(email_conf, dict):
+            raise TypeError('email conf type error must dict.')
+        if not isinstance(email_conf['mailhost'][0], str):
+            raise TypeError('email host address error.')
+        if not isinstance(email_conf['mailhost'][1], int):
+            raise TypeError('email host port error.')
+        if not isinstance(email_conf['credentials'][0],str):
+            raise TypeError('sender email error')
+        if not isinstance(email_conf['credentials'][1], str):
+            raise TypeError('sender password error')
+        if not isinstance(email_conf['toaddrs'],list) or len(email_conf['toaddrs']) ==0:
+            raise TypeError('toaddrs email error.')
